@@ -4,14 +4,10 @@ package bonch.hack.backend.controllers;
 import bonch.hack.backend.entities.*;
 import bonch.hack.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
 
 import static bonch.hack.backend.JsonSingleton.getJSON;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -23,9 +19,6 @@ public class MainController {
 
     private static final String DEFAULT_CITY = "Санкт-Петербург";
     private static final double DEFAULT_RATING = 7.5;
-    private static final String SERVER_URL = "http://130.211.123.86:8080/";
-    private static final String PATH_IMAGES = "src/main/resources/static/images_places/";
-    private static final String PATH_IMG_OUTPUT = "images_places/";
 
     private final PlaceRepository placeRepository;
     private final UserRepository userRepository;
@@ -54,13 +47,12 @@ public class MainController {
             @RequestParam("type_place") String type,
             @RequestParam("place_geo_x") double geoX,
             @RequestParam("place_geo_y") double geoY,
-            @RequestParam("place_img") MultipartFile img,
+            @RequestParam("place_img") String imgName,
             @RequestParam("is_free") boolean isFree,
             @RequestParam("more_description") String moreDescription) {
 
         Place place;
         HttpStatus httpStatus;
-        BufferedOutputStream stream;
         try {
             place = new Place();
             place.setPlaceName(placeName);
@@ -72,15 +64,12 @@ public class MainController {
             place.setFree(isFree);
             place.setPlaceGeoX(geoX);
             place.setPlaceGeoY(geoY);
-            place.setPlaceImg(SERVER_URL + PATH_IMG_OUTPUT + placeName.hashCode() + ".png");
+            place.setPlaceImg(imgName);
 
-            stream = new BufferedOutputStream(new FileOutputStream(new File(PATH_IMAGES + placeName.hashCode() + ".png")));
-            stream.write(img.getBytes());
-            stream.close();
             placeRepository.save(place);
 
             httpStatus = HttpStatus.OK;
-        } catch (IOException e) {
+        } catch (Exception e) {
             httpStatus = HttpStatus.BAD_REQUEST;
             e.printStackTrace();
         }
@@ -92,7 +81,7 @@ public class MainController {
     public @ResponseBody
     HttpStatus setPlaceImages(
             @PathVariable("place_id") long placeId,
-            @RequestParam("place_img") MultipartFile img,
+            @RequestParam("place_img") String imgName,
             @RequestParam("name_img") String nameImg) {
 
         ImagePlace imagePlace;
@@ -101,16 +90,14 @@ public class MainController {
         try {
             imagePlace = new ImagePlace();
             imagePlace.setPlace(placeRepository.findById(placeId).get());
-            imagePlace.setImg(SERVER_URL + PATH_IMAGES + nameImg.hashCode() + ".png");
+            imagePlace.setImg(nameImg);
             imagePlace.setNameImg(nameImg);
 
-            stream = new BufferedOutputStream(new FileOutputStream(new File(PATH_IMAGES + "/" + nameImg.hashCode() + ".png")));
-            stream.write(img.getBytes());
-            stream.close();
+
             imagePlaceRepository.save(imagePlace);
 
             httpStatus = HttpStatus.OK;
-        } catch (IOException e) {
+        } catch (Exception e) {
             httpStatus = HttpStatus.BAD_REQUEST;
             e.printStackTrace();
         }
@@ -133,7 +120,7 @@ public class MainController {
         //near = geo юзера
         //near +- 10км
         //sql query with this parameters
-
+        // TODO: 12/1/2019
         result = getJSON(placeRepository.getPlace(userId, city));
         return result;
     }
@@ -178,23 +165,23 @@ public class MainController {
     }
 
     //GET return image *******************************************************************************
-    @RequestMapping(
-            value = "/images_places/{img_title}",
-            method = GET,
-            produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] getImg(@PathVariable("img_title") String imgTitle) {
-        byte[] result = null;
-        Resource resource;
-        InputStream is;
-        try {
-            resource = new ClassPathResource("static/images_places/" + imgTitle );
-            is = resource.getInputStream();
-            result = org.apache.commons.io.IOUtils.toByteArray(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    @RequestMapping(
+//            value = "/images_places/{img_title}",
+//            method = GET,
+//            produces = MediaType.IMAGE_JPEG_VALUE)
+//    public byte[] getImg(@PathVariable("img_title") String imgTitle) {
+//        byte[] result = null;
+//        Resource resource;
+//        InputStream is;
+//        try {
+//            resource = new ClassPathResource("static/images_places/" + imgTitle );
+//            is = resource.getInputStream();
+//            result = org.apache.commons.io.IOUtils.toByteArray(is);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
 
 
     //POST set marked place as like or dislike *******************************************************************************
