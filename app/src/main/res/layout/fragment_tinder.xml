@@ -8,9 +8,12 @@
         android:id="@+id/swipeStack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        
         app:stack_spacing="0dp"
         app:stack_rotation="0"
-        app:stack_size="3"/>
+        android:elevation="4dp"
+        />
     <RelativeLayout
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"

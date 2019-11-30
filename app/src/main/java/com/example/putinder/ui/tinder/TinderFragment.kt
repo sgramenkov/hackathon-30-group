@@ -7,12 +7,13 @@ import android.view.ViewGroup
 
 import android.widget.BaseAdapter
 import android.widget.TextView
+
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.putinder.R
 import com.example.putinder.ui.adapters.TinderAdapter
 import link.fls.swipestack.SwipeStack
-import kotlin.math.abs
+import java.lang.Math.abs
 
 
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
@@ -36,7 +37,6 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         )
         var adapter = TinderAdapter(data)
         swipeStack.adapter = adapter
-
 
         return root
     }
@@ -79,4 +79,8 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     }
 
 
+
 }
+
+}
+
