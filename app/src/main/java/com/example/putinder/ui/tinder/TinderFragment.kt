@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 
 import android.widget.Toast
@@ -27,7 +28,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
 
-        var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
+        var swipeStack = root.findViewById<SwipeStack>(R.id.swipe_stack)
         var data: ArrayList<String> = arrayListOf(
             "dfl;jg;d",
             "dsF'dsF",
@@ -84,6 +85,8 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         }
     }
 
+
+        }    }
 
 
 }
