@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,6 +16,8 @@ import com.example.putinder.retrofit.Models.Photos
 import com.example.putinder.retrofit.RetrofitFactory
 import com.example.putinder.ui.adapters.TinderAdapter
 import kotlinx.coroutines.*
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import link.fls.swipestack.SwipeStack
@@ -25,7 +28,8 @@ import kotlin.math.abs
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
     //lateinit var adapter: TinderAdapter
 
-
+    lateinit var realm: Realm
+    var data:List<Photos>?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,12 +37,20 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
         val service = RetrofitFactory().makeRetrofitService()
-        var data:List<Photos>?=null
-            //mutableListOf(Photos(1, "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/201/278/9.jpg"))
+
+
+        Realm.init(context)
+        val config = RealmConfiguration.Builder()
+            .name("PhotosDB.realm")
+            .build()
+        realm = Realm.getInstance(config)
+
+
         var swipeStack = root.findViewById<SwipeStack>(R.id.swipe_stack)
 
         swipeStack.setSwipeProgressListener(this)
         swipeStack.setListener(this)
+
         val sharedCounterLock = Semaphore(1)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -62,6 +74,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
                         sharedCounterLock.release()
 
+
                     } else {
                         //Toast.makeText(applicationContext,"${response.code()}", Toast.LENGTH_SHORT).show()
                     }
@@ -72,7 +85,11 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             }
         }
         sharedCounterLock.acquire()
+
+
         sharedCounterLock.acquire()
+
+
         if (data!=null){
         var adapter = TinderAdapter(data!!, context!!)
         swipeStack.adapter = adapter}
@@ -84,7 +101,31 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
         return root
     }
+    private fun saveData(photo:Photos) {
+        /*val arrList: ArrayList<Photos> = arrayListOf()
+        if (list.isNotEmpty()) {
+//сначала все упакуем в один массив, а потом одной транзакцией отправим в БД
+            list.forEach {
+                val photo = Photos(it.id, it.albumId,it.url,it.title)
+                /*photo.id=it.id
+                photo.albumId = it.albumId
+                photo.url = it.url
+                photo.title=it.title*/
+                //photo.img = Glide.with(this).load(it.url)
+                arrList.add(photo)
+            }
+//одним траншем пишем в базу
 
+        }*/
+
+        realm.executeTransactionAsync({ bgRealm ->
+            bgRealm.insertOrUpdate(photo) //сохраняем первый раз или обновляем уже имеющееся
+        }, {
+            Toast.makeText(context, "Success write", Toast.LENGTH_SHORT).show()
+        }, {
+            Toast.makeText(context, "Fail write", Toast.LENGTH_SHORT).show()
+        })
+    }
     override fun onViewSwipedToLeft(position: Int) {
 
         Toast.makeText(context, "LEFT", Toast.LENGTH_SHORT).show()
@@ -92,6 +133,8 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
     override fun onViewSwipedToRight(position: Int) {
         Toast.makeText(context, "RIGHT", Toast.LENGTH_SHORT).show()
+
+        saveData(data!![position])
 
     }
 

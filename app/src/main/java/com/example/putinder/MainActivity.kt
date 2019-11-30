@@ -1,6 +1,8 @@
 package com.example.putinder
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)
+        progressBar.visibility= View.INVISIBLE
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_news, R.id.navigation_chat, R.id.navigation_tinder,R.id.navigation_favorite,R.id.navigation_profile
