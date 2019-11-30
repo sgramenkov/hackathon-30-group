@@ -22,14 +22,16 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:alpha="0"
-            android:background="@android:color/holo_red_light" />
+            android:background="@android:color/holo_red_light"
+             />
         <View
             android:layout_alignParentEnd="true"
             android:id="@+id/likeView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:alpha="0"
-            android:background="@android:color/holo_red_light" />
+
+            android:background="@drawable/like_swipe_icon"/>
     </RelativeLayout>
 
 
