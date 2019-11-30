@@ -16,9 +16,7 @@
         app:stack_spacing="0dp"
         />
 
-        android:padding="15dp"
-        app:stack_rotation="0"
-        app:stack_spacing="0dp" />
+
 
     <RelativeLayout
         android:layout_gravity="center_vertical"
