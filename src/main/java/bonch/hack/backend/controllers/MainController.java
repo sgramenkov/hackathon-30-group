@@ -23,7 +23,7 @@ public class MainController {
 
     private static final String DEFAULT_CITY = "Санкт-Петербург";
     private static final double DEFAULT_RATING = 7.5;
-    private static final String SERVER_URL = "http://localhost:8080/";
+    private static final String SERVER_URL = "http://130.211.123.86:8080/";
     private static final String PATH_IMAGES = "src/main/resources/static/images_places/";
     private static final String PATH_IMG_OUTPUT = "images_places/";
 
