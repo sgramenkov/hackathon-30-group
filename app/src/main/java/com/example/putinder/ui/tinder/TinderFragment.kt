@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.putinder.R
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import com.example.putinder.retrofit.RetrofitFactory
 import com.example.putinder.retrofit.Models.Photos
@@ -18,6 +19,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+=======
+import com.example.putinder.ui.adapters.TinderAdapter
+import com.google.android.material.snackbar.Snackbar
+>>>>>>> parent of 84904c6... awdad
 =======
 import com.example.putinder.ui.adapters.TinderAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -39,6 +44,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         val service = RetrofitFactory().makeRetrofitService()
@@ -73,6 +79,9 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
 =======
 
+=======
+
+>>>>>>> parent of 84904c6... awdad
 =======
 
 >>>>>>> parent of 84904c6... awdad
