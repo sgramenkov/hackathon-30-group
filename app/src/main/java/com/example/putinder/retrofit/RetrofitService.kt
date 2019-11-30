@@ -1,6 +1,6 @@
-package com.example.putinder.Retrofit
+package com.example.putinder.retrofit
 
-import com.example.putinder.Retrofit.Models.Photos
+import com.example.putinder.retrofit.Models.Photos
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -10,7 +10,7 @@ interface RetrofitService {
     suspend fun getData(){
     }
     @GET("/photos")
-    suspend fun TransferToPhotosActivity(): Response<ArrayList<Photos>>
+    suspend fun TransferToPhotosActivity(): Response<List<Photos>>
     @POST
     suspend fun postData(){
 

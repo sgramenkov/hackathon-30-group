@@ -1,4 +1,4 @@
-package com.example.putinder.Retrofit.Models
+package com.example.putinder.retrofit.Models
 
 /*import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
