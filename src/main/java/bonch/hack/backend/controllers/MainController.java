@@ -1,9 +1,7 @@
 package bonch.hack.backend.controllers;
 
 
-import bonch.hack.backend.entities.MarkedPlace;
-import bonch.hack.backend.entities.PlaceComment;
-import bonch.hack.backend.entities.UserRatingPlace;
+import bonch.hack.backend.entities.*;
 import bonch.hack.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
