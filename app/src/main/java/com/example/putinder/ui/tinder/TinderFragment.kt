@@ -27,7 +27,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
 
-        var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
+        var swipeStack = root.findViewById<SwipeStack>(R.id.swipe_stack)
         var data: ArrayList<String> = arrayListOf(
             "dfl;jg;d",
             "dsF'dsF",
@@ -36,6 +36,8 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             "dsfdsfdsf"
         )
         var adapter = TinderAdapter(data)
+        swipeStack.setSwipeProgressListener(this)
+        swipeStack.setListener(this)
         swipeStack.adapter = adapter
 
         return root
@@ -64,7 +66,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     }
 
     override fun onSwipeStart(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(context,"START",Toast.LENGTH_SHORT).show()
     }
 
     override fun onSwipeProgress(position: Int, progress: Float) {
@@ -75,12 +77,10 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         } else if (progress > 0 && progress < 0.6) {
             val likeView: View = view!!.findViewById(R.id.likeView)
             likeView.alpha = abs(progress * 1 / 0.6F)
-        }
-    }
-
+        }    }
 
 
 }
 
-}
+
 
