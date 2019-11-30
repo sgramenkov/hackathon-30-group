@@ -265,4 +265,24 @@ public class MainController {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+    //for stephan
+    @RequestMapping(
+            value = "/stephan",
+            method = GET)
+    public @ResponseBody
+    String stephan() {
+
+        return "<h6>hubabuba</h6>";
+    }
 }
