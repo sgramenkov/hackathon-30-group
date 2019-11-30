@@ -4,10 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.putinder.R
-
-class TinderFragment:Fragment() {
 
 import android.widget.BaseAdapter
 import android.widget.TextView
@@ -23,16 +19,12 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     lateinit var adapter: TinderAdapter
 
 
- 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
-        return root
-    }
-
 
         var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
         var data: ArrayList<String> = arrayListOf(
@@ -85,7 +77,6 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             likeView.alpha = abs(progress * 1 / 0.6F)
         }
     }
-
 
 
 }
