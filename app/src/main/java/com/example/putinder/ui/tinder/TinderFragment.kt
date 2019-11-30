@@ -66,7 +66,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     }
 
     override fun onSwipeStart(position: Int) {
-        Toast.makeText(context,"START",Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onSwipeProgress(position: Int, progress: Float) {
