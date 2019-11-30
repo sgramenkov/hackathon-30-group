@@ -1,4 +1,4 @@
-package com.example.putinder.Retrofit
+package com.example.putinder.retrofit
 
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -10,6 +10,6 @@ interface RetrofitService {
     }
     @POST
     suspend fun postData(){
-        
+
     }
 }

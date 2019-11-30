@@ -1,4 +1,4 @@
-package com.example.putinder.Retrofit
+package com.example.putinder.retrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
