@@ -23,8 +23,9 @@ public class MainController {
 
     private static final String DEFAULT_CITY = "Санкт-Петербург";
     private static final double DEFAULT_RATING = 7.5;
-    private static final String SERVER_URL = "http://130.211.123.86:8080/";
-    private static final String PATH_IMAGES = "resources/static/images_places/";
+    private static final String SERVER_URL = "http://localhost:8080/";
+    private static final String PATH_IMAGES = "src/main/resources/static/images_places/";
+    private static final String PATH_IMG_OUTPUT = "images_places/";
 
     private final PlaceRepository placeRepository;
     private final UserRepository userRepository;
@@ -71,7 +72,7 @@ public class MainController {
             place.setFree(isFree);
             place.setPlaceGeoX(geoX);
             place.setPlaceGeoY(geoY);
-            place.setPlaceImg(SERVER_URL + PATH_IMAGES + placeName.hashCode() + ".png");
+            place.setPlaceImg(SERVER_URL + PATH_IMG_OUTPUT + placeName.hashCode() + ".png");
 
             stream = new BufferedOutputStream(new FileOutputStream(new File(PATH_IMAGES + placeName.hashCode() + ".png")));
             stream.write(img.getBytes());
@@ -103,7 +104,7 @@ public class MainController {
             imagePlace.setImg(SERVER_URL + PATH_IMAGES + nameImg.hashCode() + ".png");
             imagePlace.setNameImg(nameImg);
 
-            stream = new BufferedOutputStream(new FileOutputStream(new File(PATH_IMAGES + nameImg.hashCode() + ".png")));
+            stream = new BufferedOutputStream(new FileOutputStream(new File(PATH_IMAGES + "/" + nameImg.hashCode() + ".png")));
             stream.write(img.getBytes());
             stream.close();
             imagePlaceRepository.save(imagePlace);
@@ -186,7 +187,7 @@ public class MainController {
         Resource resource;
         InputStream is;
         try {
-            resource = new ClassPathResource("static/images_places/i.jpg");
+            resource = new ClassPathResource("static/images_places/" + imgTitle );
             is = resource.getInputStream();
             result = org.apache.commons.io.IOUtils.toByteArray(is);
         } catch (IOException e) {
