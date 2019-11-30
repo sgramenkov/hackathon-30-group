@@ -11,25 +11,36 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "title_news", nullable = false)
+    private String titleNews;
+
     @Column(name = "text_content", nullable = false)
     private String textContent;
 
     @Column(name = "img", nullable = false)
-    private byte[] img;
+    private String img;
 
     public String getTextContent() {
         return textContent;
+    }
+
+    public String getTitleNews() {
+        return titleNews;
+    }
+
+    public void setTitleNews(String titleNews) {
+        this.titleNews = titleNews;
     }
 
     public void setTextContent(String textContent) {
         this.textContent = textContent;
     }
 
-    public byte[] getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(byte[] img) {
+    public void setImg(String img) {
         this.img = img;
     }
 }
