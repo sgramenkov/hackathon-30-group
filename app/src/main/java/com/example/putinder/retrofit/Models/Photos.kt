@@ -1,8 +1,5 @@
 package com.example.putinder.retrofit.Models
 
-/*import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
-import io.realm.annotations.RealmClass
 
 @RealmClass
 open class Photos (@PrimaryKey

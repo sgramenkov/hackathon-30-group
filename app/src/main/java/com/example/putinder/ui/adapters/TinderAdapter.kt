@@ -8,30 +8,37 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.util.Log
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
+import com.example.putinder.MainActivity
 import com.example.putinder.R
 import com.example.putinder.retrofit.Models.Photos
+import com.example.putinder.ui.description.DescriptionFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.fragment_description.*
+import link.fls.swipestack.SwipeStack
 
-class TinderAdapter(private val mData: List<Photos>,val context: Context) :
+
+class TinderAdapter(private val mData: List<Photos>, val context: Context) :
     BaseAdapter() {
     override fun getCount(): Int {
-        return mData.size
+        return 20
     }
 
-    override fun getItem(position: Int): Photos {
-        return mData[position]
+    override fun getItem(position: Int): String {
+        return mData[position].url
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-
     override fun getView(
         position: Int,
         convertView: View?,
         parent: ViewGroup?
-
     ): View {
 
 
@@ -44,10 +51,12 @@ class TinderAdapter(private val mData: List<Photos>,val context: Context) :
         id.text=mData[position].id.toString()
         title.text=mData[position].title.toString()
 
+        
+        var descFragment=DescriptionFragment()
+        descFragment.isHidden
         Glide.with(parent.context).load(mData[position].url).into(imgView)
 
         return view
     }
-
 
 }
