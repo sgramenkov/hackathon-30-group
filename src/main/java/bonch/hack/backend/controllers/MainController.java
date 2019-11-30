@@ -270,4 +270,14 @@ public class MainController {
         }
         return httpStatus;
     }
+
+    //DELETE place *******************************************************************************
+    @RequestMapping(value = "/places/{place_id}", method = GET)
+    public @ResponseBody
+    String setRating(
+            @PathVariable("place_id") long placeId) {
+
+        placeRepository.deleteById(placeId);
+        return "OK";
+    }
 }
