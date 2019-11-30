@@ -14,6 +14,7 @@
 
 
         <ImageView
+            android:id="@+id/sights_image_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="75"
@@ -26,18 +27,19 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewCard"
+                android:id="@+id/sights_name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="sometext"
-                android:textSize="44sp" />
+                android:textStyle="bold"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/sights_desc_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="description"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
 
