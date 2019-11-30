@@ -4,14 +4,14 @@ package bonch.hack.backend.controllers;
 import bonch.hack.backend.entities.*;
 import bonch.hack.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import static bonch.hack.backend.JsonSingleton.getJSON;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -24,7 +24,7 @@ public class MainController {
     private static final String DEFAULT_CITY = "Санкт-Петербург";
     private static final double DEFAULT_RATING = 7.5;
     private static final String SERVER_URL = "http://130.211.123.86:8080/";
-    private static final String PATH_IMAGES = "images_places/";
+    private static final String PATH_IMAGES = "resources/static/images_places/";
 
     private final PlaceRepository placeRepository;
     private final UserRepository userRepository;
@@ -176,6 +176,25 @@ public class MainController {
         return result;
     }
 
+    //GET return image *******************************************************************************
+    @RequestMapping(
+            value = "/images_places/{img_title}",
+            method = GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImg(@PathVariable("img_title") String imgTitle) {
+        byte[] result = null;
+        Resource resource;
+        InputStream is;
+        try {
+            resource = new ClassPathResource("static/images_places/i.jpg");
+            is = resource.getInputStream();
+            result = org.apache.commons.io.IOUtils.toByteArray(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
     //POST set marked place as like or dislike *******************************************************************************
     @RequestMapping(value = "/places/{place_id}/mark", method = POST)
@@ -262,27 +281,5 @@ public class MainController {
             e.printStackTrace();
         }
         return httpStatus;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //for stephan
-    @RequestMapping(
-            value = "/stephan",
-            method = GET)
-    public @ResponseBody
-    String stephan() {
-
-        return "<h6>hubabuba</h6>";
     }
 }
