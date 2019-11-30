@@ -2,6 +2,7 @@ package bonch.hack.backend.controllers;
 
 import bonch.hack.backend.entities.User;
 import bonch.hack.backend.repositories.MarkedPlaceRepository;
+import bonch.hack.backend.repositories.PlaceRepository;
 import bonch.hack.backend.repositories.UserRepository;
 import bonch.hack.backend.repositories.VisitedPlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,14 @@ public class ProfileController {
     private final UserRepository userRepository;
     private final MarkedPlaceRepository markedPlaceRepository;
     private final VisitedPlaceRepository visitedPlaceRepository;
+    private final PlaceRepository placeRepository;
 
     @Autowired
-    public ProfileController(UserRepository userRepository, MarkedPlaceRepository markedPlaceRepository, VisitedPlaceRepository visitedPlaceRepository) {
+    public ProfileController(UserRepository userRepository, MarkedPlaceRepository markedPlaceRepository, VisitedPlaceRepository visitedPlaceRepository, PlaceRepository placeRepository) {
         this.userRepository = userRepository;
         this.markedPlaceRepository = markedPlaceRepository;
         this.visitedPlaceRepository = visitedPlaceRepository;
+        this.placeRepository = placeRepository;
     }
 
     //POST create user
@@ -103,6 +106,15 @@ public class ProfileController {
     @ResponseBody
     public String getProfileData(@PathVariable("user_id") long userId) {
         return getJSON(userRepository.findById(userId).get());
+    }
+
+    //GET get liked places
+    @RequestMapping(
+            value = "/users/{user_id}/liked",
+            method = GET)
+    @ResponseBody
+    public String getLikedPlace(@PathVariable("user_id") long userId) {
+        return getJSON(placeRepository.getLikedPlaces(userId));
     }
 
     //GET get user geo

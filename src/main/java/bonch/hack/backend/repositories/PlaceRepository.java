@@ -20,4 +20,7 @@ public interface PlaceRepository  extends JpaRepository<Place, Long> {
             nativeQuery = true)
     List<Place> getPlace(long userId, String city, String type, boolean isFree);
 
+    @Query(value = "SELECT * FROM places pl WHERE EXISTS (SELECT * FROM marked_places pl_mr WHERE place_id = pl.id AND user_id = ?1  AND mark_pl.is_like = true)",
+            nativeQuery = true)
+    List<Place> getLikedPlaces(long userId);
 }
