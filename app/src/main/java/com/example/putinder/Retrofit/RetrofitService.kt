@@ -9,5 +9,10 @@ interface RetrofitService {
 
     @GET("/photos")
     suspend fun TransferToPhotosActivity(): Response<List<Photos>>
+<<<<<<< HEAD
+=======
+    @POST
+    suspend fun postData(){
+>>>>>>> parent of 84904c6... awdad
 
 }
