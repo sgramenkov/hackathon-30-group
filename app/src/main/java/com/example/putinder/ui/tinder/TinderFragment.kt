@@ -1,7 +1,6 @@
 package com.example.putinder.ui.tinder
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.putinder.R
+<<<<<<< HEAD
 
 import com.example.putinder.retrofit.RetrofitFactory
 import com.example.putinder.retrofit.Models.Photos
@@ -17,8 +17,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+=======
+import com.example.putinder.ui.adapters.TinderAdapter
+import com.google.android.material.snackbar.Snackbar
+>>>>>>> parent of 84904c6... awdad
 import link.fls.swipestack.SwipeStack
-import retrofit2.HttpException
 import kotlin.math.abs
 
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
@@ -31,6 +34,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
+<<<<<<< HEAD
         val service = RetrofitFactory().makeRetrofitService()
         var data: List<Photos>
         var swipeStack = root.findViewById<SwipeStack>(R.id.swipe_stack)
@@ -61,6 +65,20 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         }
 
 
+=======
+
+        var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
+        var data: ArrayList<String> = arrayListOf(
+            "dfl;jg;d",
+            "dsF'dsF",
+            "dsfdsfdsf",
+            "dsF'dsF",
+            "dsfdsfdsf"
+        )
+        var adapter = TinderAdapter(data)
+        swipeStack.setSwipeProgressListener(this)
+        swipeStack.setListener(this)
+>>>>>>> parent of 84904c6... awdad
 
 
         return root
