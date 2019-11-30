@@ -3,25 +3,25 @@
 
     <item
         android:id="@+id/navigation_news"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:icon="@drawable/news_icon"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_chat"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:icon="@drawable/chat_icon"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_tinder"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:icon="@drawable/tinder_icon"
+        android:title="" />
     <item
         android:id="@+id/navigation_favorite"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:icon="@drawable/favorite_icon"
+        android:title="" />
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:icon="@drawable/profile_icon"
+        android:title="" />
 
 </menu>
