@@ -7,5 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="recycler_style">
+        <item name="android:background">@drawable/rv_item_style</item>
+    </style>
 
 </resources>
