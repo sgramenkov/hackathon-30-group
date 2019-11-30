@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.putinder.R
-import com.example.putinder.retrofit.Models.Photos
+
 import com.example.putinder.retrofit.RetrofitFactory
+import com.example.putinder.retrofit.Models.Photos
 import com.example.putinder.ui.adapters.TinderAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +51,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
                         swipeStack.adapter = adapter
 
                     } else {
-                        //Toast.makeText(applicationContext,"${response.code()}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,"${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 

@@ -16,10 +16,6 @@
         app:stack_spacing="0dp"
         />
 
-        android:padding="15dp"
-        app:stack_rotation="0"
-        app:stack_spacing="0dp" />
-
     <RelativeLayout
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
@@ -39,11 +35,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:alpha="0"
-
-
-
-
-
             android:background="@drawable/like_swipe_icon"/>
     </RelativeLayout>
 
