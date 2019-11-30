@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+import android.widget.BaseAdapter
+import android.widget.TextView
+
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.putinder.R
@@ -14,6 +18,7 @@ import java.lang.Math.abs
 
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
     lateinit var adapter: TinderAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,4 +77,10 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             likeView.alpha = abs(progress * 1 / 0.6F)
         }
     }
+
+
+
 }
+
+}
+

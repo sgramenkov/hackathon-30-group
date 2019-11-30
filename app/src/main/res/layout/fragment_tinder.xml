@@ -8,7 +8,9 @@
         android:id="@+id/swipeStack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-app:stack_spacing="0dp"
+
+        
+        app:stack_spacing="0dp"
         app:stack_rotation="0"
         android:elevation="4dp"
         />
