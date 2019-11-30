@@ -12,9 +12,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.putinder.R
 import com.example.putinder.ui.adapters.TinderAdapter
+import com.google.android.material.snackbar.Snackbar
 import link.fls.swipestack.SwipeStack
-import java.lang.Math.abs
-
+import kotlin.math.abs
 
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
     lateinit var adapter: TinderAdapter
@@ -36,8 +36,9 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             "dsfdsfdsf"
         )
         var adapter = TinderAdapter(data)
-        swipeStack.setListener(this)
         swipeStack.setSwipeProgressListener(this)
+        swipeStack.setListener(this)
+
         swipeStack.adapter = adapter
 
         return root
@@ -66,17 +67,20 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     }
 
     override fun onSwipeStart(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onSwipeProgress(position: Int, progress: Float) {
-        if (progress < 0 && progress > -0.6) {
+        if (progress < 0 && progress > -0.6F) {
             val dislikeView: View = view!!.findViewById(R.id.dislikeView)
             dislikeView.alpha = abs(progress * (1 / 0.6F))
 
-        } else if (progress > 0 && progress < 0.6) {
+
+        } else if (progress > 0 && progress < 0.6F) {
             val likeView: View = view!!.findViewById(R.id.likeView)
             likeView.alpha = abs(progress * 1 / 0.6F)
+
+
         }
     }
 

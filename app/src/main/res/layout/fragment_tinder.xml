@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
     <link.fls.swipestack.SwipeStack
         android:id="@+id/swipeStack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        
-        app:stack_spacing="0dp"
+        android:padding="10dp"
         app:stack_rotation="0"
-        android:elevation="4dp"
+        app:stack_spacing="0dp"
         />
     <RelativeLayout
         android:layout_gravity="center_vertical"
@@ -35,6 +34,5 @@
             android:background="@android:color/holo_red_light" />
     </RelativeLayout>
 
+
 </FrameLayout>
-
-
