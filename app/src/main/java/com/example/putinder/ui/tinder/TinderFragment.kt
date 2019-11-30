@@ -15,13 +15,9 @@ import link.fls.swipestack.SwipeStack
 import kotlin.math.abs
 
 
-class TinderFragment: Fragment(),SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
-    lateinit var adapter:TinderAdapter
+class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
+    lateinit var adapter: TinderAdapter
 
-import androidx.fragment.app.Fragment
-import com.example.putinder.R
-
-class TinderFragment:Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,17 +27,20 @@ class TinderFragment:Fragment() {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
 
         var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
-        var data:ArrayList<String> = arrayListOf("dfl;jg;d",
+        var data: ArrayList<String> = arrayListOf(
+            "dfl;jg;d",
             "dsF'dsF",
             "dsfdsfdsf",
             "dsF'dsF",
-            "dsfdsfdsf")
+            "dsfdsfdsf"
+        )
         var adapter = TinderAdapter(data)
-        swipeStack.adapter=adapter
+        swipeStack.adapter = adapter
 
 
         return root
     }
+
     override fun onViewSwipedToLeft(position: Int) {
 
         Toast.makeText(context, "LEFT", Toast.LENGTH_SHORT).show()
@@ -79,9 +78,5 @@ class TinderFragment:Fragment() {
         }
     }
 
-
-
-        return root
-    }
 
 }
