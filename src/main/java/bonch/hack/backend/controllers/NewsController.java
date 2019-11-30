@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 
 import static bonch.hack.backend.JsonSingleton.getJSON;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -24,8 +21,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class NewsController {
 
-    private static final String SERVER_URL = "http://130.211.123.86:8080/";
-    private static final String PATH_IMAGES_NEWS = "images_news/";
 
     private final NewsRepository newsRepository;
     private final NewsCommentRepository newsCommentRepository;
@@ -45,7 +40,7 @@ public class NewsController {
     public HttpStatus setNews(
             @RequestParam("title_news") String titleNews,
             @RequestParam("text_content") String textContent,
-            @RequestParam("img") MultipartFile img) {
+            @RequestParam("img") String img) {
 
         News news;
         HttpStatus httpStatus;
@@ -55,11 +50,8 @@ public class NewsController {
             news.setTitleNews(titleNews);
             news.setTextContent(textContent);
             // TODO: 11/30/2019  
-            news.setImg(SERVER_URL + PATH_IMAGES_NEWS + titleNews.hashCode() + ".png");
+            news.setImg(img);
 
-            stream = new BufferedOutputStream(new FileOutputStream(new File(PATH_IMAGES_NEWS + textContent.hashCode() + ".png")));
-            stream.write(img.getBytes());
-            stream.close();
             newsRepository.save(news);
 
             httpStatus = HttpStatus.OK;

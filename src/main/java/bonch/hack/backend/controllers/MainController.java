@@ -164,25 +164,6 @@ public class MainController {
         return result;
     }
 
-    //GET return image *******************************************************************************
-//    @RequestMapping(
-//            value = "/images_places/{img_title}",
-//            method = GET,
-//            produces = MediaType.IMAGE_JPEG_VALUE)
-//    public byte[] getImg(@PathVariable("img_title") String imgTitle) {
-//        byte[] result = null;
-//        Resource resource;
-//        InputStream is;
-//        try {
-//            resource = new ClassPathResource("static/images_places/" + imgTitle );
-//            is = resource.getInputStream();
-//            result = org.apache.commons.io.IOUtils.toByteArray(is);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-
 
     //POST set marked place as like or dislike *******************************************************************************
     @RequestMapping(value = "/places/{place_id}/mark", method = POST)
