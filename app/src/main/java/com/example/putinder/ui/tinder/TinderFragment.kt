@@ -36,6 +36,8 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             "dsfdsfdsf"
         )
         var adapter = TinderAdapter(data)
+        swipeStack.setListener(this)
+        swipeStack.setSwipeProgressListener(this)
         swipeStack.adapter = adapter
 
         return root
@@ -82,5 +84,5 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
 }
 
-}
+
 
