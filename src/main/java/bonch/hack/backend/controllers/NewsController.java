@@ -22,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 public class NewsController {
 
-    private static final String SERVER_URL = "http://localhost:8080/";
+    private static final String SERVER_URL = "http://130.211.123.86:8080/";
     private static final String PATH_IMAGES_NEWS = "images_news/";
 
     private final NewsRepository newsRepository;
