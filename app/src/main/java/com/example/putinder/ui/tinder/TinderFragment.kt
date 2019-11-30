@@ -1,6 +1,7 @@
 package com.example.putinder.ui.tinder
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.putinder.R
+import com.example.putinder.Retrofit.Models.Photos
+import com.example.putinder.retrofit.RetrofitFactory
 import com.example.putinder.ui.adapters.TinderAdapter
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import link.fls.swipestack.SwipeStack
+import retrofit2.HttpException
 import kotlin.math.abs
 
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
@@ -26,16 +34,33 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
+        val service= RetrofitFactory().makeRetrofitService()
+        var data: ArrayList<Photos>
 
+        CoroutineScope(Dispatchers.IO).launch {
+
+
+            val response = service.TransferToPhotosActivity()
+            try {
+                withContext(Dispatchers.Main){
+                    if (response.isSuccessful){
+                        //recycler.adapter=PhotosAdapter(response.body()!!,this@PhotosActivity)
+                        data=response.body()!!
+                        adapter = TinderAdapter(data,context!!)
+
+                    }
+                    else{
+                        //Toast.makeText(applicationContext,"${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }catch (err: HttpException){
+                Log.e("Retrofit","${err.printStackTrace()}")
+            }
+        }
         var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
-        var data: ArrayList<String> = arrayListOf(
-            "dfl;jg;d",
-            "dsF'dsF",
-            "dsfdsfdsf",
-            "dsF'dsF",
-            "dsfdsfdsf"
-        )
-        var adapter = TinderAdapter(data)
+
+
         swipeStack.setSwipeProgressListener(this)
         swipeStack.setListener(this)
 
