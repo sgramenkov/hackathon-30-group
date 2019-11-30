@@ -1,5 +1,6 @@
 package com.example.putinder.ui.tinder
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,16 +9,17 @@ import android.view.ViewGroup
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.putinder.MainActivity
 import com.example.putinder.R
 import com.example.putinder.retrofit.Models.Photos
 import com.example.putinder.retrofit.RetrofitFactory
 import com.example.putinder.ui.adapters.TinderAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import link.fls.swipestack.SwipeStack
 import retrofit2.HttpException
+import java.util.concurrent.Semaphore
 import kotlin.math.abs
 
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
@@ -31,23 +33,34 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
         val service = RetrofitFactory().makeRetrofitService()
-        var data: List<Photos>
+        var data:List<Photos>?=null
+            //mutableListOf(Photos(1, "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/201/278/9.jpg"))
         var swipeStack = root.findViewById<SwipeStack>(R.id.swipe_stack)
+
         swipeStack.setSwipeProgressListener(this)
         swipeStack.setListener(this)
+        val sharedCounterLock = Semaphore(1)
 
         CoroutineScope(Dispatchers.IO).launch {
 
 
             val response = service.TransferToPhotosActivity()
             try {
-                withContext(Dispatchers.Main) {
+                withContext(Dispatchers.Default) {
+
                     if (response.isSuccessful) {
                         //recycler.adapter=PhotosAdapter(response.body()!!,this@PhotosActivity)
+
+
+
+
                         data = response.body()!!
-                        Log.e("Retrofit",response.body().toString())
-                        var adapter = TinderAdapter(data, context!!)
-                        swipeStack.adapter = adapter
+
+                        Log.e("Retrofit", response.body().toString())
+                        Log.e("context", context.toString())
+
+
+                        sharedCounterLock.release()
 
                     } else {
                         //Toast.makeText(applicationContext,"${response.code()}", Toast.LENGTH_SHORT).show()
@@ -58,7 +71,14 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
                 Log.e("Retrofit", "${err.printStackTrace()}")
             }
         }
-
+        sharedCounterLock.acquire()
+        sharedCounterLock.acquire()
+        if (data!=null){
+        var adapter = TinderAdapter(data!!, context!!)
+        swipeStack.adapter = adapter}
+        sharedCounterLock.release()
+        /*var adapter = TinderAdapter(data!!, context!!)
+        swipeStack.adapter = adapter*/
 
 
 

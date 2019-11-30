@@ -1,6 +1,7 @@
 package com.example.putinder.ui.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,19 +32,15 @@ class TinderAdapter(private val mData: List<Photos>,val context: Context) :
         parent: ViewGroup?
 
     ): View {
-        /*var convertView: View? = convertView
-        if (convertView == null) {
-            convertView = LayoutInflater.from(parent.context).inflate(R.layout.tinder_card, parent, false)
-        }
-        val textViewCard =
-            convertView?.findViewById<View>(R.id.textViewCard) as TextView
-        textViewCard.text = mData[position]
-        return convertView*/
+
 
 
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.tinder_card,parent,false)
         val imgView = view.findViewById<ImageView>(R.id.image_view)
-        Glide.with(context).load(mData[position].url).into(imgView)
+
+        Log.e("adapter",mData.toString())
+        Glide.with(parent.context).load(mData[position].url).into(imgView)
+
         return view
     }
 
