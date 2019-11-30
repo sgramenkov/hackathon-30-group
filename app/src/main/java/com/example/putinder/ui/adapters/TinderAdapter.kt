@@ -23,8 +23,8 @@ class TinderAdapter(private val mData: ArrayList<String>) :
 
     override fun getView(
         position: Int,
-        convertView: View,
-        parent: ViewGroup
+        convertView: View?,
+        parent: ViewGroup?
     ): View {
         /*var convertView: View? = convertView
         if (convertView == null) {
