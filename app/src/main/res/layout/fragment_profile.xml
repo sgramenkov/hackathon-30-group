@@ -65,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Посещенные места"
+            android:layout_marginLeft="12dp"
             android:id="@+id/visited_places"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
