@@ -34,15 +34,18 @@ class FavAdapter(val list: List<Sights>, val context: Context):
     inner class PhotosHolder(itemview:View):RecyclerView.ViewHolder(itemview){
         private val imageView=itemView.findViewById<ImageView>(R.id.photos_image_view)
         private val idTextView=itemView.findViewById<TextView>(R.id.id_text)
+        private val typeTextView=itemView.findViewById<TextView>(R.id.type_text)
         private val titleTextView=itemView.findViewById<TextView>(R.id.title_text)
         fun bind(sights: Sights, position: Int){
-            idTextView.text=sights.placeName.toString()
-            titleTextView.text=sights.description.toString()
+            idTextView.text=sights.placeName
+            typeTextView.text=sights.typePlace
+            titleTextView.text=sights.description
             Glide.with(context).load(sights.placeImg).into(imageView)
             itemView.setOnClickListener(){
                 val intent=Intent(itemView.context,MoreInfoActivity::class.java)
                 itemView.context.startActivity(intent)
             }
+            Glide.with(context).load(sights.placeImg).centerCrop().into(imageView)
         }
     }
 }
