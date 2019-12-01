@@ -143,17 +143,13 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
         realm.executeTransactionAsync({ bgRealm ->
             bgRealm.insertOrUpdate(photo) //сохраняем первый раз или обновляем уже имеющееся
         }, {
-            Toast.makeText(context, "Success write", Toast.LENGTH_SHORT).show()
         }, {
-            Toast.makeText(context, "Fail write", Toast.LENGTH_SHORT).show()
         })
     }
     override fun onViewSwipedToLeft(position: Int) {
 
-        Toast.makeText(context, "LEFT", Toast.LENGTH_SHORT).show()
     }
     override fun onViewSwipedToRight(position: Int) {
-        Toast.makeText(context, "RIGHT", Toast.LENGTH_SHORT).show()
 
         saveData(data!![position])
 

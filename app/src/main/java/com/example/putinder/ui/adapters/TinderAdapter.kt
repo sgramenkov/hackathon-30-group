@@ -2,10 +2,11 @@ package com.example.putinder.ui.adapters
 
 import android.app.Activity
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -13,29 +14,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import com.bumptech.glide.Glide
+import com.example.putinder.MainActivity
+import com.example.putinder.MoreInfoActivity
 import com.example.putinder.R
 import com.example.putinder.retrofit.Models.Sights
-import com.example.putinder.ui.description.DescriptionFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 
 class TinderAdapter(private val mData: List<Sights>, val context: Context) :
     BaseAdapter() {
+    lateinit var descpref: SharedPreferences
+    lateinit var descprefEditor: SharedPreferences.Editor
     var myLat: Double? = null
     var myLon: Double? = null
     var mLocationPermissionGranted: Boolean = false
     //var isLocTaken: Boolean
     private var locationManager: LocationManager? = null
+
     override fun getCount(): Int {
         return mData.size
     }
@@ -65,10 +66,10 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
 
     fun formDist(dist: Int): String {
 
-        var dDist:Double=(dist.toDouble()/1000)
+        var dDist: Double = (dist.toDouble() / 1000)
         if (dist > 1000) {
-            var s=(BigDecimal(dDist).setScale(1, RoundingMode.HALF_EVEN)).toString() + "км"
-            Log.e("dist",s)
+            var s = (BigDecimal(dDist).setScale(1, RoundingMode.HALF_EVEN)).toString() + "км"
+            Log.e("dist", s)
             return s
         } else {
 
@@ -150,11 +151,19 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
         if (position < mData.size) {
             placeName.text = mData[position].placeName
             title.text = mData[position].description.toString()
-            Glide.with(parent.context).load(mData[position].placeImg).into(imgView)
+            Glide.with(parent.context).load(mData[position].placeImg).centerCrop().into(imgView)
+        }
+        val moreInfoBTN: Button = view.findViewById(R.id.more_info_btn)
+        descpref = (context as MainActivity).getSharedPreferences("DESCRIPTION", MODE_PRIVATE)
+        moreInfoBTN.setOnClickListener() {
+            descprefEditor = descpref.edit()
+            descprefEditor.putString("DESC", mData[position].description)
+            descprefEditor.putString("photo",mData[position].placeImg)
+            descprefEditor.apply()
+            val intent=Intent(context,MoreInfoActivity::class.java)
+            startActivity(context,intent,null)
         }
 
-        var descFragment = DescriptionFragment()
-        descFragment.isHidden
 
 
         return view
