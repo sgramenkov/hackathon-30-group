@@ -36,24 +36,21 @@ public class ProfileController {
     //POST create user
     @RequestMapping(value = "/users", method = POST)
     @ResponseBody
-    public HttpStatus createUser(
+    public User createUser(
             @RequestParam("phone") String phone,
             @RequestParam("password") String password) {
 
-        HttpStatus httpStatus;
-        User user;
+        User user = null;
         try{
             user = new User();
             user.setPhone(phone);
             user.setPassword(password);
-            userRepository.save(user);
+            user = userRepository.save(user);
 
-            httpStatus = HttpStatus.OK;
         }catch (Exception e){
-            httpStatus = HttpStatus.BAD_REQUEST;
             e.printStackTrace();
         }
-        return httpStatus;
+        return user;
     }
 
     //POST update profile data

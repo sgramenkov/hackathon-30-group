@@ -7,12 +7,7 @@ import bonch.hack.backend.repositories.NewsRepository;
 import bonch.hack.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.io.BufferedOutputStream;
+import org.springframework.web.bind.annotation.*;
 
 import static bonch.hack.backend.JsonSingleton.getJSON;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -44,14 +39,11 @@ public class NewsController {
 
         News news;
         HttpStatus httpStatus;
-        BufferedOutputStream stream;
         try {
             news = new News();
             news.setTitleNews(titleNews);
             news.setTextContent(textContent);
-            // TODO: 11/30/2019  
             news.setImg(img);
-
             newsRepository.save(news);
 
             httpStatus = HttpStatus.OK;
@@ -88,6 +80,29 @@ public class NewsController {
         return httpStatus;
     }
 
+
+    //POST add like
+//    @RequestMapping(value = "/news/{news_id}/like", method = POST)
+//    @ResponseBody
+//    public HttpStatus setLike(@PathVariable("news_id") long newsId) {
+//
+//        int countLike;
+//        News news;
+//        HttpStatus httpStatus;
+//        try {
+//            //get count like
+//            countLike = newsRepository.getCountLike(newsId);
+//            newsRepository.setLike(newsId, countLike++);
+//
+//            httpStatus = HttpStatus.OK;
+//        } catch (Exception e) {
+//            httpStatus = HttpStatus.BAD_REQUEST;
+//            e.printStackTrace();
+//        }
+//        return httpStatus;
+//    }
+
+
     //GET get news
     @RequestMapping(
             value = "/news",
@@ -96,6 +111,5 @@ public class NewsController {
     public String getNews() {
         return getJSON(newsRepository.findAll());
     }
-    // TODO: 11/30/2019  
 
 }

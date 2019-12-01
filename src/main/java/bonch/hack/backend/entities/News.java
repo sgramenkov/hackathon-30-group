@@ -20,6 +20,7 @@ public class News {
     @Column(name = "img", nullable = false)
     private String img;
 
+
     public String getTextContent() {
         return textContent;
     }
@@ -43,4 +44,5 @@ public class News {
     public void setImg(String img) {
         this.img = img;
     }
+
 }
