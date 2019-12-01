@@ -1,34 +1,34 @@
 package com.example.putinder.ui.tinder
 
+
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.example.putinder.MainActivity
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.putinder.FiltersActivity
+import com.example.putinder.MainActivity
 import com.example.putinder.R
-import com.example.putinder.retrofit.Models.Photos
+import com.example.putinder.retrofit.Models.Sights
 import com.example.putinder.retrofit.RetrofitFactory
 import com.example.putinder.ui.adapters.TinderAdapter
-import kotlinx.coroutines.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.fragment_description.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,11 +38,16 @@ import retrofit2.HttpException
 import java.util.concurrent.Semaphore
 import kotlin.math.abs
 
+
 class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.SwipeProgressListener {
     //lateinit var adapter: TinderAdapter
 
     lateinit var realm: Realm
-    var data:List<Photos>?=null
+
+    private var locationManager : LocationManager? = null
+    var mLocationPermissionGranted: Boolean = false
+    var data:List<Sights>?=null
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,16 +55,18 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tinder, container, false)
         val service = RetrofitFactory().makeRetrofitService()
+        var lat:Double?=null
+        var lon:Double?=null
 
 
         Realm.init(context)
         val config = RealmConfiguration.Builder()
-            .name("PhotosDB.realm")
+            .name("SightsDB.realm")
             .build()
         realm = Realm.getInstance(config)
 
 
-        var swipeStack = root.findViewById<SwipeStack>(R.id.swipe_stack)
+        var swipeStack = root.findViewById<SwipeStack>(R.id.swipeStack)
 
         swipeStack.setSwipeProgressListener(this)
         swipeStack.setListener(this)
@@ -84,6 +91,8 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
                         Log.e("Retrofit", response.body().toString())
                         Log.e("context", context.toString())
+
+
 
 
                         sharedCounterLock.release()
@@ -114,7 +123,7 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
 
         return root
     }
-    private fun saveData(photo:Photos) {
+    private fun saveData(photo:Sights) {
         /*val arrList: ArrayList<Photos> = arrayListOf()
         if (list.isNotEmpty()) {
 //сначала все упакуем в один массив, а потом одной транзакцией отправим в БД
@@ -172,6 +181,9 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
             likeView.alpha = abs(progress * 1 / 0.6F)
         }
     }
+
+
+
 }
 
 

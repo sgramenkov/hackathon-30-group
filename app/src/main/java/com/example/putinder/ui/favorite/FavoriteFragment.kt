@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.putinder.R
-import com.example.putinder.retrofit.Models.Photos
+import com.example.putinder.retrofit.Models.Sights
 import com.example.putinder.ui.adapters.FavAdapter
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -25,7 +25,7 @@ class FavoriteFragment:Fragment() {
 
         Realm.init(context)
         val config = RealmConfiguration.Builder()
-            .name("PhotosDB.realm")
+            .name("SightsDB.realm")
             .build()
         realm = Realm.getInstance(config)
 
@@ -37,17 +37,17 @@ class FavoriteFragment:Fragment() {
 
         return root
     }
-    private fun getData(): List<Photos> {
-        var list: ArrayList<Photos> = arrayListOf()
+    private fun getData(): List<Sights> {
+        var list: ArrayList<Sights> = arrayListOf()
         Realm.init(context)
         val config = RealmConfiguration.Builder()
-            .name("PhotosDB.realm")
+            .name("SightsDB.realm")
             .build()
         realm = Realm.getInstance(config)
-        val realmResult = realm.where(Photos::class.java).findAll()
+        val realmResult = realm.where(Sights::class.java).findAll()
         if (realmResult != null) {
             for(i in realmResult.indices){
-                val tempDataPhoto = Photos(realmResult[i]!!.id,realmResult[i]!!.albumId, realmResult[i]!!.url, realmResult[i]!!.title)
+                val tempDataPhoto = Sights(realmResult[i]!!.id,realmResult[i]!!.placeName,realmResult[i]!!.description, placeImg = realmResult[i]!!.placeImg )
                 list.add(tempDataPhoto)
             }
         } else {
