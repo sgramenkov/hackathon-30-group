@@ -19,7 +19,7 @@
             android:id="@+id/profile_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/profile_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TEXT"
+                android:text="Катя"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -45,13 +45,13 @@
                 android:id="@+id/date_of_birth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TEXT" />
+                android:text="01.01.2001" />
 
             <TextView
                 android:id="@+id/sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TEXT" />
+                android:text="Пол: Женский" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
