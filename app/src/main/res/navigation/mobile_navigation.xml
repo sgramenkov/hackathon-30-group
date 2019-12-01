@@ -10,6 +10,11 @@
         android:name="com.example.putinder.ui.news.NewsFragment"
         android:label="NEWS"
         tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.example.putinder.ui.chat.ChatFragment"
+        android:label="CHAT"
+        tools:layout="@layout/fragment_chat"/>
 
     <fragment
         android:id="@+id/navigation_tinder"
