@@ -160,7 +160,6 @@ class TinderFragment : Fragment(), SwipeStack.SwipeStackListener, SwipeStack.Swi
     }
 
     override fun onStackEmpty() {
-        Toast.makeText(context, "EMPTY", Toast.LENGTH_SHORT).show()
 
     }
     override fun onSwipeEnd(position: Int) {
