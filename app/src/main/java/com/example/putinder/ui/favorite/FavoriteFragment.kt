@@ -47,7 +47,19 @@ class FavoriteFragment:Fragment() {
         val realmResult = realm.where(Sights::class.java).findAll()
         if (realmResult != null) {
             for(i in realmResult.indices){
-                val tempDataPhoto = Sights(realmResult[i]!!.id,realmResult[i]!!.placeName,realmResult[i]!!.description, placeImg = realmResult[i]!!.placeImg )
+                val tempDataPhoto = Sights(
+                    realmResult[i]!!.id,
+                    realmResult[i]!!.placeName,
+                    realmResult[i]!!.description,
+                    realmResult[i]!!.placeGeoX,
+                    realmResult[i]!!.placeGeoY,
+                    realmResult[i]!!.placeImg,
+                    realmResult[i]!!.rating,
+                    realmResult[i]!!.city,
+                    realmResult[i]!!.typePlace,
+                    realmResult[i]!!.moreDescription,
+                    realmResult[i]!!.free
+                )
                 list.add(tempDataPhoto)
             }
         } else {
