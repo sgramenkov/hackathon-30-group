@@ -155,7 +155,7 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
         }
         val moreInfoBTN: Button = view.findViewById(R.id.more_info_btn)
         descpref = (context as MainActivity).getSharedPreferences("DESCRIPTION", MODE_PRIVATE)
-        moreInfoBTN.setOnClickListener() {
+        moreInfoBTN.setOnClickListener {
             descprefEditor = descpref.edit()
             descprefEditor.putString("DESC", mData[position].description)
             descprefEditor.putString("photo",mData[position].placeImg)
