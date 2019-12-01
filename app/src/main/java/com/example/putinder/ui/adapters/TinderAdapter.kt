@@ -150,7 +150,7 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
         if (position < mData.size) {
             placeName.text = mData[position].placeName
             title.text = mData[position].description.toString()
-            Glide.with(parent.context).load(mData[position].placeImg).into(imgView)
+            Glide.with(parent.context).load(mData[position].placeImg).centerCrop().into(imgView)
         }
 
         var descFragment = DescriptionFragment()

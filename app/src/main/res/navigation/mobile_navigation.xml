@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_news" />
 
     <fragment
-        android:id="@+id/navigation_chat"
-        android:name="com.example.putinder.ui.chat.ChatFragment"
-        android:label="CHAT"
-        tools:layout="@layout/fragment_chat" />
-
-    <fragment
         android:id="@+id/navigation_tinder"
         android:name="com.example.putinder.ui.tinder.TinderFragment"
         android:label="TINDER"
