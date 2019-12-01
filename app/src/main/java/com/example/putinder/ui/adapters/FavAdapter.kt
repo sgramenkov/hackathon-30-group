@@ -3,6 +3,7 @@ package com.example.putinder.ui.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,8 @@ import com.example.putinder.retrofit.Models.Sights
 
 class FavAdapter(val list: List<Sights>, val context: Context):
     RecyclerView.Adapter<FavAdapter.PhotosHolder>() {
+    lateinit var descpref: SharedPreferences
+    lateinit var descprefEditor: SharedPreferences.Editor
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosHolder {
         return PhotosHolder(LayoutInflater.from(context).inflate( R.layout.photos_item,parent,false))
     }
@@ -50,8 +53,17 @@ class FavAdapter(val list: List<Sights>, val context: Context):
                 ContextCompat.startActivity(context, mapIntent, null)
             }
             Glide.with(context).load(sights.placeImg).into(imageView)
-            itemView.setOnClickListener(){
+            descpref = (context as MainActivity).getSharedPreferences("DESCRIPTION",
+                Context.MODE_PRIVATE
+            )
+            itemView.setOnClickListener{
                 val intent=Intent(itemView.context,MoreInfoActivity::class.java)
+                descprefEditor = descpref.edit()
+                descprefEditor.putString("DESC", sights.description)
+                descprefEditor.putString("photo",sights.placeImg)
+                descprefEditor.putString("name",sights.placeName)
+                descprefEditor.putString("category",sights.typePlace)
+                descprefEditor.apply()
                 itemView.context.startActivity(intent)
             }
 
