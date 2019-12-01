@@ -20,15 +20,15 @@
                 android:id="@+id/sight_img"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="-30dp"></ImageView>
+                android:layout_marginTop="-40dp"></ImageView>
 
             <RelativeLayout
                 style="@style/recycler_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="-20dp"
-                android:padding="10dp">
+                android:layout_marginTop="-30dp"
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/name_more_info_tv"
@@ -56,19 +56,28 @@
                         android:id="@+id/address_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="АДРЕС" />
+                        android:text="АДРЕС"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/geoposition"
+                        android:background="@android:color/transparent"/>
 
                     <Button
                         android:id="@+id/site_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="САЙТ" />
+                        android:text="САЙТ"
+                        android:drawablePadding="-7dp"
+                        android:drawableLeft="@drawable/site"
+                        android:background="@android:color/transparent"/>
 
                     <Button
                         android:id="@+id/phones_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ТЕЛЕФОН" />
+                        android:text="ТЕЛЕФОН"
+                        android:drawableLeft="@drawable/phone"
+                        android:drawablePadding="13dp"
+                        android:background="@android:color/transparent"/>
 
                 </LinearLayout>
             </RelativeLayout>
