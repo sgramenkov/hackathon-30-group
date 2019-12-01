@@ -4,18 +4,27 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@android:color/holo_red_light"
+    android:background="@android:color/white"
+    android:layout_marginTop="?actionBarSize"
    >
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Описание"
+    android:textStyle="bold"
+    android:textSize="30sp"/>
     <TextView
         android:id="@+id/desc_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DESC"/>
+        android:text="DESC"
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/reviews_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REVIEWS"/>
+        android:text="Отзывы"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 </LinearLayout>
