@@ -33,9 +33,6 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
     lateinit var descprefEditor: SharedPreferences.Editor
     var myLat: Double? = null
     var myLon: Double? = null
-    var mLocationPermissionGranted: Boolean = false
-    //var isLocTaken: Boolean
-    private var locationManager: LocationManager? = null
 
     override fun getCount(): Int {
         return mData.size
@@ -84,7 +81,8 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
         convertView: View?,
         parent: ViewGroup?
     ): View {
-
+        descpref = (context as MainActivity).getSharedPreferences("DESCRIPTION", MODE_PRIVATE)
+        descprefEditor = descpref.edit()
 
         val view =
             LayoutInflater.from(parent!!.context).inflate(R.layout.tinder_card, parent, false)
@@ -94,49 +92,11 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
         val textDist = view.findViewById<TextView>(R.id.text_distance)
         var lat = mData[position].placeGeoX!!.toDouble()
         var lng = mData[position].placeGeoY!!.toDouble()
-        if (ContextCompat.checkSelfPermission(
-                context,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            mLocationPermissionGranted = true
-            Log.e("PERMISSION", mLocationPermissionGranted.toString())
-            var locationManager: LocationManager =
-                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
-                1000,
-                0f,
-                object : android.location.LocationListener {
-                    override fun onLocationChanged(location: Location?) {
-                        myLat = location!!.latitude
-                        myLon = location!!.longitude
-                        Log.e("COORDS", "$myLat $myLon")
-                        var dist = coordToMeters(myLat!!, lat, myLon!!, lng)
+        myLat=descpref.getFloat("myLat",0f).toDouble()
+        myLon=descpref.getFloat("myLon",0f).toDouble()
 
-                        textDist.text = formDist(dist)
-
-
-                    }
-
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-                    }
-
-                    override fun onProviderEnabled(provider: String?) {
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-                    }
-
-                })
-
-        } else {
-            ActivityCompat.requestPermissions(
-                context as Activity,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1
-            )
-        }
+        var dist = coordToMeters(myLat!!, lat, myLon!!, lng)
+        textDist.text = formDist(dist)
 
 
         var routeButton = view.findViewById<ImageButton>(R.id.routeButton)
@@ -154,7 +114,7 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
             Glide.with(parent.context).load(mData[position].placeImg).centerCrop().into(imgView)
         }
         val moreInfoBTN: Button = view.findViewById(R.id.more_info_btn)
-        descpref = (context as MainActivity).getSharedPreferences("DESCRIPTION", MODE_PRIVATE)
+
         moreInfoBTN.setOnClickListener {
             descprefEditor = descpref.edit()
             descprefEditor.putString("DESC", mData[position].description)
