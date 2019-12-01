@@ -3,12 +3,15 @@ package com.example.putinder.ui.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 import com.bumptech.glide.Glide
@@ -35,16 +38,23 @@ class FavAdapter(val list: List<Sights>, val context: Context):
         private val imageView=itemView.findViewById<ImageView>(R.id.photos_image_view)
         private val idTextView=itemView.findViewById<TextView>(R.id.id_text)
         private val typeTextView=itemView.findViewById<TextView>(R.id.type_text)
-        private val titleTextView=itemView.findViewById<TextView>(R.id.title_text)
+        val btnPath = itemview.findViewById<ImageButton>(R.id.path_image)
         fun bind(sights: Sights, position: Int){
             idTextView.text=sights.placeName
             typeTextView.text=sights.typePlace
-            titleTextView.text=sights.description
+
+            btnPath.setOnClickListener{
+                val gmmIntentUri: Uri = Uri.parse("google.navigation:q=${sights.placeGeoX}+${sights.placeGeoY}&mode=w")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                ContextCompat.startActivity(context, mapIntent, null)
+            }
             Glide.with(context).load(sights.placeImg).into(imageView)
             itemView.setOnClickListener(){
                 val intent=Intent(itemView.context,MoreInfoActivity::class.java)
                 itemView.context.startActivity(intent)
             }
+
             Glide.with(context).load(sights.placeImg).centerCrop().into(imageView)
         }
     }
