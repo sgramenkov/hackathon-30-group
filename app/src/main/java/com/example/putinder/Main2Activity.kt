@@ -21,6 +21,7 @@ class Main2Activity : AppCompatActivity() {
     var myLon: Double? = null
     var mLocationPermissionGranted: Boolean = false
     private var locationManager: LocationManager? = null
+    var flag:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -40,12 +41,13 @@ class Main2Activity : AppCompatActivity() {
                 0f,
                 object : android.location.LocationListener {
                     override fun onLocationChanged(location: Location?) {
+
                         myLat = location!!.latitude
                         myLon = location!!.longitude
-                        Log.e("COORDS", "$myLat $myLon")
-                        descpref = getSharedPreferences("DESCRIPTION",
-                            Context.MODE_PRIVATE
-                        )
+                        if (myLat!=null && myLon!=null && flag!=true){
+                            descpref = getSharedPreferences("DESCRIPTION",
+                                Context.MODE_PRIVATE
+                            )
 
                             descprefEditor = descpref.edit()
                             descprefEditor.putFloat("myLat", myLat!!.toFloat())
@@ -53,6 +55,18 @@ class Main2Activity : AppCompatActivity() {
                             descprefEditor.apply()
 
 
+                            var intent = Intent(applicationContext,MainActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                            finish()
+
+                        }
+                        Log.e("COORDS", "$myLat $myLon")
+
+
+
+                        flag=true
 
 
                     }
@@ -70,16 +84,12 @@ class Main2Activity : AppCompatActivity() {
 
         } else {
             ActivityCompat.requestPermissions(
-                applicationContext as Activity,
+                this,
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1
             )
         }
 
-        var intent = Intent(this,MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        finish()
+
 
     }
 }
