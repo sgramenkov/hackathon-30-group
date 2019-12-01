@@ -20,6 +20,10 @@ class MoreInfoActivity : AppCompatActivity() {
         Log.e("DESC",descpref.getString("DESC",""))
         val descTV:TextView=findViewById(R.id.desc_text_view)
         descTV.text=descpref.getString("DESC","")
+        val sightsName:TextView=findViewById(R.id.name_more_info_tv)
+        sightsName.text=descpref.getString("name","")
+        val sightsCategory:TextView=findViewById(R.id.category_more_info)
+        sightsCategory.text=descpref.getString("category","")
         Glide.with(this).load(descpref.getString("photo","")).into(sightIMG)
     }
 }

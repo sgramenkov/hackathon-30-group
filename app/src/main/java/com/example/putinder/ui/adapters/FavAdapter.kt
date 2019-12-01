@@ -2,14 +2,18 @@ package com.example.putinder.ui.adapters
 
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 import com.bumptech.glide.Glide
+import com.example.putinder.MainActivity
+import com.example.putinder.MoreInfoActivity
 import com.example.putinder.R
 import com.example.putinder.retrofit.Models.Sights
 
@@ -35,6 +39,10 @@ class FavAdapter(val list: List<Sights>, val context: Context):
             idTextView.text=sights.placeName.toString()
             titleTextView.text=sights.description.toString()
             Glide.with(context).load(sights.placeImg).into(imageView)
+            itemView.setOnClickListener(){
+                val intent=Intent(itemView.context,MoreInfoActivity::class.java)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 }

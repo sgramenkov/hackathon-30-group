@@ -159,6 +159,8 @@ class TinderAdapter(private val mData: List<Sights>, val context: Context) :
             descprefEditor = descpref.edit()
             descprefEditor.putString("DESC", mData[position].description)
             descprefEditor.putString("photo",mData[position].placeImg)
+            descprefEditor.putString("name",mData[position].placeName)
+            descprefEditor.putString("category",mData[position].typePlace)
             descprefEditor.apply()
             val intent=Intent(context,MoreInfoActivity::class.java)
             startActivity(context,intent,null)
